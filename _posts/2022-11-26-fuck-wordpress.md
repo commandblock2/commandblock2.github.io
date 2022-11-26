@@ -14,7 +14,7 @@ tags: [sys-admin, meta]
 看着还不错，就是评论服务看起来我都不太喜欢，希望哪天可以有时间整个 [cactus comment](https://cactus.chat)，正巧我手里有个matrix服务器
 
 #### 新博客和网站的结构
-你现在访问的这个博客有两份地址，[commandblock2.xyz](https://commandblock2.xyz/blog)，和 [commandblock2.github.io](https://commandblock2.github.io)   
+你现在访问的这个博客有两份地址，[commandblock2.xyz](https://commandblock2.xyz/blog)，和 https://commandblock2.github.io  
 `.github.io`的就很容易理解了嘛，commandblock2.xyz 解析到的vps在国外，因为国内不给开放80/443的端口，而且香港的话被当成梯子封起来就很难受了  
 
 为了
@@ -28,16 +28,16 @@ tags: [sys-admin, meta]
 
 那怎么办呢，那就只好买vps当公网ip/流量转发了，下面这个表就是整个站的拓卜结构了
 
-| 物理机编号 | 费率                            | Domain                   | Function                        | Distribution | Softwares                            | Detailed Description                                                               |
-|------------|---------------------------------|--------------------------|---------------------------------|--------------|--------------------------------------|------------------------------------------------------------------------------------|
-| #0         | 3.5$ / Mon                      | commandblock2.xyz        | website hosting                 | Debian       | nginx                                | 外网vultr租的一台机器，minimal spec                                                 |
-| #0         |                                 | dl.commandblock2.xyz     | 下载站                          |              | nginx                                | 跟上面是同一个服务器，多一个sni，外网带宽真他妈便宜，文件用scp/sftp上传，用nginx serve |
-| #0         |                                 | vpn.commandblock2.xyz    | 梯子                            |              | trojan                               | 想不到吧名目张胆的用这个域名到现在还活着                                           |
-| #1         | 24￥ + .8￥ * outbound / GB / Mon | mc.commandblock2.xyz     | mc服地址                        | Debian       | tinc/socat/sshd                      | tinc组建软件局域网，socat转发mc流量，这个是阿里云的ecs，minimal spec按流量计费        |
-| #2         | 35￥/ Year (明年就换)            | lbw.mc.commandblock2.xyz | 低带宽mc服地址 / 回家用的穿透服 | Debian       | sshd                                 | ssh远程端口转发流量                                                                |
-| #2         |                                 | lbw.commandblock2.xyz    |                                 |              | sshd                                 | 上面的alias                                                                        |
-| #2         |                                 | matrix.commandblock2.xyz | matrix服务器地址                |              | sshd                                 | 联邦用端口8848/本服流量1443                                                        |
-| #3         | ???                             | 没有公网ip               | 所有的服务                      | Gentoo       | synapse, minecraft, tinc, nginx, ... | 内网主机                                                                           |
+| 物理机编号 | 费率                            | Domain                   | Function                  | Distribution | Softwares                            | Detailed Description                                                               |
+|------------|---------------------------------|--------------------------|---------------------------|--------------|--------------------------------------|------------------------------------------------------------------------------------|
+| #0         | 3.5$ / Mon                      | commandblock2.xyz        | website hosting           | Debian       | nginx                                | 外网vultr租的一台机器，minimal spec                                                 |
+| #0         |                                 | dl.commandblock2.xyz     | 下载站                    |              | nginx                                | 跟上面是同一个服务器，多一个sni，外网带宽真他妈便宜，文件用scp/sftp上传，用nginx serve |
+| #0         |                                 | vpn.commandblock2.xyz    | 梯子                      |              | trojan                               | 想不到吧名目张胆的用这个域名到现在还活着                                           |
+| #1         | 24￥ + .8￥ * outbound / GB / Mon | mc.commandblock2.xyz     | mc服地址 / 回家用的穿透服 | Debian       | tinc/socat/sshd                      | tinc组建软件局域网，socat转发mc流量，这个是阿里云的ecs，minimal spec按流量计费        |
+| #2         | 35￥/ Year (明年就换)            | lbw.mc.commandblock2.xyz | 低带宽mc服地址            | Debian       | sshd                                 | ssh远程端口转发流量                                                                |
+| #2         |                                 | lbw.commandblock2.xyz    |                           |              | sshd                                 | 上面的alias                                                                        |
+| #2         |                                 | matrix.commandblock2.xyz | matrix服务器地址          |              | sshd                                 | 联邦用端口8848/本服流量1443                                                        |
+| #3         | ???                             | 没有公网ip               | 所有的服务                | Gentoo       | synapse, minecraft, tinc, nginx, ... | 内网主机                                                                           |
 
 
 目前的计划是每次更新完blog，push到gayhub上用它的ci服务，直接做成gayhub pagees，然后在内网主机(#3)上wget定时爬下来这个页面，然后用`ssh` port-forward(over torjan)到commandblock2.xyz上面  

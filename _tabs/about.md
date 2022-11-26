@@ -4,7 +4,6 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-# About
 既然都用 commandblock2 这个id了那就算是实名上网了，一查到处都能找到我，相关链接就还是不放了，万一你们找错人了呢 /笑 能搜到我是谁的平台我都不用  
 [相关链接](https://duckduckgo.com/?q=commandblock2)
 

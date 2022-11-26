@@ -14,7 +14,7 @@ tags: [sys-admin, meta]
 看着还不错，就是评论服务看起来我都不太喜欢，希望哪天可以有时间整个 [cactus comment](https://cactus.chat)，正巧我手里有个matrix服务器
 
 #### 新博客和网站的结构
-你现在访问的这个博客有两份地址，[commandblock2.xyz](https://commandblock2.xyz/blog)，和 https://commandblock2.github.io  
+你现在访问的这个博客有两份地址，[commandblock2.xyz](https://commandblock2.xyz/blog)，和 https://commandblock2.github.io (分享请用这个地址)  
 `.github.io`的就很容易理解了嘛，commandblock2.xyz 解析到的vps在国外，因为国内不给开放80/443的端口，而且香港的话被当成梯子封起来就很难受了  
 
 为了

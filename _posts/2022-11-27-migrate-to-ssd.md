@@ -6,7 +6,7 @@ tags: [sys-admin]
 ---
 
 ## Previous
-这两天玩mc的时候鞘翅老是飞着飞着地图就加载不出来了， 
+这两天玩mc的时候鞘翅老是飞着飞着地图就加载不出来了，matrix有的时候消息同步的也慢 
 ![nomap](/assets/img/minecraft/2022-11-27_16.19.28.webp)
 _用了Distant Horizons的客户端_  
 但原本服务器的地图都是提前生成的  
@@ -45,6 +45,7 @@ _`/dev/sdb`是用来备份用的一张盘，备份完ssd上原有的数据就可
 这次要进行的操作是把95%(figuratively)的操作系统全部从一个磁盘上迁移到另外一块磁盘上  
 操作其实非常简单，只要cp过去，然后重写一下fstab，设置一下内核参数，然后设置一下EFI启动顺序就直接完美了  
 这台机器的软件上的配置非常特殊，**没有grub引导，没有initramfs，根目录用的btrfs，rootfs的内核参数是编译在内核里的(笑**  
+相关配置参见 [EFI Stub (Gentoo wiki)](https://wiki.gentoo.org/wiki/EFI_stub)  
 (有用到`snapshot`做自动化快照)虽然快照只给mc服务器用，但是累计的快照数据量大概可以到1T了，迁移起来就是大概会很麻烦  
 
 ```  
@@ -284,4 +285,159 @@ Boot0000* Gentoo on SSD HD(1,GPT,962aa5a4-2a03-1140-84f1-c4ce5813ddde,0x800,0x80
 server ~ # reboot 
 ```
 
-肏你妈服务器起不起来了日
+过了一会发现所有网络服务都上线，过去跑到机器旁边按了电源键要重启  
+肏你妈服务器起不起来了日  
+
+***
+
+## Debug  
+
+这个服务器运维过程中GG是个毫不稀奇的事情 /笑  
+经过几次重启发现都起不起来，这个时候呢我就想连上一个屏来看看kernel panic到底是啥  
+结果发现几周前把显卡拆了，板子上也没有hdmi/vga/dp的接口，人直接傻在那了  
+
+没有显示器，那要把旧系统启起来看看是咋回事，那就得把ssd撤掉，那就拆机吧
+
+
+![拆](/assets/img/torn-apart.webp)
+_拆完了_
+
+拔掉ssd之后呢，旧的系统启动，接上网线连到电脑上，开个cable tether，发现一切正常  
+比较了一下内核的 `.config` 文件发现唯一的差别就是`PARTUUID`不一样，看起来好像也没啥问题  
+再重写一遍吧，确认不是这个的锅，`make clean && make -j6 && make install`，还是启不起来  
+上述过程有重复了一遍，浪费了好一阵才把旧系统重启过来
+
+突然想起来之前这样的活干过两次，网线插上不亮，那多半是完全没起来，应该就是kernel panic了，去瞅了眼  
+`/var/log/dmesg`发现ssd上的还是旧系统上次启动时候的dmesg，那就可以确定不是fstab写空的问题
+
+后来把 `nvmen1p1` 里的内核换成旧内核，发现旧系统可以成功启动，那么可以确定问题不在ssd读不了的问题上
+
+如果我的ssd能在旧系统上成功mount，也可以写，那么肯定驱动都是没问题的，bios又能读ssd加载内核
+
+> 那么，***问题肯定就出在 `btrfs` 的驱动是module没有buitlin!!!***  
+
+
+进menuconfig一看，btrfs全是 `<*>`，人又傻了  
+(其实我这个时候已经傻逼了，btrfs如果是`<m>`不是`<*>`旧系统也启不起来的)  
+
+最后实在没辙了，只好想之前出过的问题去搜一搜，诶 `Gentoo btrfs root kernel panic`  
+一搜都是熟悉帖子，乱翻什么都没有，再一看，有人说这个NVME是module也不行，  
+我想ssd里的ESP分区能读，那肯定NVME是没问题的，但是为了保险还是去看看吧，  
+一看，诶嘿真他妈的是`<m>`，这才想起来加载内核的时候BIOS又不需要内核上的NVME支持，草  
+
+最后锁定是了他妈的NVME支持用的是module而不是builtin，要是有个initramfs可能就没事了，但是可能其他地方有坑233
+
+```
+< CONFIG_NVME_COMMON=m
+< CONFIG_NVME_CORE=m
+< CONFIG_BLK_DEV_NVME=m
+---
+> CONFIG_NVME_COMMON=y
+> CONFIG_NVME_CORE=y
+> CONFIG_BLK_DEV_NVME=y
+```
+
+***
+
+## 收尾
+迁移到ssd之后还是有点小问题，比如用户login相关的一些验证会寄
+
+```
+paper119@localhost ~ $ crontab -l
+You (paper119) are not allowed to access to (crontab) because of pam configuration.
+```
+
+这次真好，直接就跟我说pam configuration有问题我直接就重新编译然后重启
+
+```
+
+localhost ~ # emerge -a1v pam
+These are the packages that would be merged, in order:
+
+Calculating dependencies... done!
+[ebuild   R    ] sys-libs/pam-1.5.2-r2::gentoo  USE="filecaps (split-usr) -audit -berkdb -debug -nis (-selinux)" ABI_X86="(64) -32 (-x32)" 0 KiB
+```
+
+mc服正常
+
+然后把`postgresql`的数据重新同步过来一遍，终于synapse也正常了，虽然中间还是丢了些federated的服的消息
+
+## Conclusion & Future plans
+
+启动mc，拿着鞘翅随便乱飞，也不会有什么后果了，50m/s的占用最高才10%  
+![good](/assets/img/minecraft/good.webp)
+
+这次还是花了比预计更多的时间和精力迁移，问题出在了哪呢
+- 不知道，
+- Gentoo大坑发行版算一个(当然Gentoo也有很舒服的地方尤其是当桌面(逃，
+- 没好好调查?
+- 不知道，我觉得这个好像不太容易避免
+- 就是自架服务器的不好的点吧
+
+另外这个ssd我不大清楚寿命还有多久，可以看到写了1几个T了，可能有点小危了，后面得赶紧上备份，这次还稍微看了看 btrfs 可以有 `send | recv`，而且有人说send多个snapshot还挺efficient，以后就可以开起多个盘的备份了，以后异地备份也得整上，
+
+```
+server ~ # smartctl -x /dev/nvme0n1p2
+smartctl 7.3 2022-02-28 r5338 [x86_64-linux-6.0.7-gentoo] (local build)
+Copyright (C) 2002-22, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Number:                       THNSN5256GPUK NVMe TOSHIBA 256GB
+Serial Number:                      
+Firmware Version:                   5KDA4103
+PCI Vendor/Subsystem ID:            0x1179
+IEEE OUI Identifier:                0x00080d
+Controller ID:                      0
+NVMe Version:                       <1.2
+Number of Namespaces:               1
+Namespace 1 Size/Capacity:          256,060,514,304 [256 GB]
+Namespace 1 Formatted LBA Size:     512
+Namespace 1 IEEE EUI-64:            00080d 030011d5dc
+Local Time is:                      Tue Nov 29 03:46:31 2022 CST
+Firmware Updates (0x02):            1 Slot
+Optional Admin Commands (0x0017):   Security Format Frmw_DL Self_Test
+Optional NVM Commands (0x001e):     Wr_Unc DS_Mngmt Wr_Zero Sav/Sel_Feat
+Log Page Attributes (0x02):         Cmd_Eff_Lg
+Warning  Comp. Temp. Threshold:     78 Celsius
+Critical Comp. Temp. Threshold:     82 Celsius
+
+Supported Power States
+St Op     Max   Active     Idle   RL RT WL WT  Ent_Lat  Ex_Lat
+ 0 +     6.00W       -        -    0  0  0  0        0       0
+ 1 +     2.40W       -        -    1  1  1  1        0       0
+ 2 +     1.90W       -        -    2  2  2  2        0       0
+ 3 -   0.0120W       -        -    3  3  3  3     5000   25000
+ 4 -   0.0060W       -        -    4  4  4  4   100000   70000
+
+Supported LBA Sizes (NSID 0x1)
+Id Fmt  Data  Metadt  Rel_Perf
+ 0 +     512       0         2
+ 1 -    4096       0         1
+
+=== START OF SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+SMART/Health Information (NVMe Log 0x02)
+Critical Warning:                   0x00
+Temperature:                        48 Celsius
+Available Spare:                    100%
+Available Spare Threshold:          50%
+Percentage Used:                    15%
+Data Units Read:                    27,119,540 [13.8 TB]
+Data Units Written:                 33,775,349 [17.2 TB]
+Host Read Commands:                 578,530,139
+Host Write Commands:                600,174,740
+Controller Busy Time:               4,311
+Power Cycles:                       1,209
+Power On Hours:                     29,088
+Unsafe Shutdowns:                   857
+Media and Data Integrity Errors:    0
+Error Information Log Entries:      0
+Warning  Comp. Temperature Time:    0
+Critical Comp. Temperature Time:    0
+Temperature Sensor 1:               48 Celsius
+
+Error Information (NVMe Log 0x01, 16 of 128 entries)
+No Errors Logged
+
+```

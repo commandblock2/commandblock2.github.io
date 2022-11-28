@@ -195,7 +195,7 @@ server / # rsync -aH --exclude=/dev/ --exclude=/home/ --exclude=/mnt/ --exclude=
 
 ***
 
-## Chroot and recompile kernel and udpate fstab
+#### Chroot and recompile kernel and udpate fstab
 
 ```
 server ~ # mount --rbind /dev/ /mnt/ssd-root/dev/

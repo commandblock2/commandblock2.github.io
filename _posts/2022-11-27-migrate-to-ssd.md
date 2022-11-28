@@ -191,3 +191,97 @@ server / # rsync -aH --exclude=/dev/ --exclude=/home/ --exclude=/mnt/ --exclude=
 顺便再备份一下我的matrix的聊天数据，不知道服务器停一会会有啥影响  
 写blog好费时间啊  
 那还是去b站看看屎尿屁煮波吧(
+
+***
+
+## Chroot and recompile kernel and udpate fstab
+
+```
+server ~ # mount --rbind /dev/ /mnt/ssd-root/dev/
+server ~ # mount --rbind /sys/ /mnt/ssd-root/sys
+server ~ # mount -t proc /proc/ /mnt/ssd-root/proc
+
+server ~ # chroot /mnt/ssd-root/ /bin/bash
+server / # . /etc/profile
+server / # export PS1="(ssd-root) ${PS1}"
+
+(ssd-root) server / # cd /usr/src/linux
+(ssd-root) server /usr/src/linux # blkid 
+/dev/nvme0n1p1: UUID="D429-75E4" BLOCK_SIZE="512" TYPE="vfat" PARTUUID="962aa5a4-2a03-1140-84f1-c4ce5813ddde"
+/dev/nvme0n1p2: UUID="159a4e92-1c84-4978-8f91-ea7b577d0fae" UUID_SUB="41a43cdc-b138-4392-9675-ea63884c4304" BLOCK_SIZE="4096" TYPE="btrfs" PARTUUID="14f27e23-cc22-0f41-b6d5-c44996b9cc54"
+/dev/sda2: UUID="832bdede-de76-4e7c-ace3-3a7ce11c577d" UUID_SUB="323ab054-418d-40bb-9d84-67c8442f4083" BLOCK_SIZE="4096" TYPE="btrfs" PARTUUID="c596a9d3-1335-834e-ba5a-02b3afe9b80f"
+/dev/sda1: UUID="B232-E248" BLOCK_SIZE="512" TYPE="vfat" PARTUUID="1f1766d8-33a9-5d44-b5f4-f4bf60c70c85"
+
+```
+
+这里我们获取一下`PARTUUID=14f27e23-cc22-0f41-b6d5-c44996b9cc54`
+
+```
+(ssd-root) server /usr/src/linux # make menuconfig
+```
+![kernel config](/assets/img/Screenshot_20221128_231627.webp)
+_Kernel menuconfig_
+去 `Processor type and features` 下找到着一条  
+更新使这个参数对应上面获取的
+![kernel config](/assets/img/Screenshot_20221128_231954.webp)
+
+```
+(ssd-root) server /usr/src/linux # mount /dev/nvme0n1p1 /boot/
+(ssd-root) server /usr/src/linux # make -j13 && make modules_install && make install
+
+(ssd-root) server /usr/src/linux # mkdir /boot/EFI/boot/ -p
+(ssd-root) server /usr/src/linux # cp /mnt/vmlinuz-6.0.7-gentoo /mnt/EFI/boot/bootx64.efi
+```
+
+到了这一步，内核就算是装好了，马上就改改fstab了
+
+(突然发现我就这一个根目录需要挂上，fstab空的都没问题，那就不写了)
+
+***
+
+#### Update UEFI booting
+
+不管efivars是什么状态，先挂成`rw`再说就行
+
+```
+(ssd-root) server /usr/src/linux # mount /sys/firmware/efi/efivars -o rw,remount
+```
+
+然后用`efibootmgr`加一条放在第一位就可以重启了
+
+```
+# 现有的
+(ssd-root) server /usr/src/linux # efibootmgr 
+BootCurrent: 0004
+Timeout: 0 seconds
+BootOrder: 0004,0001,0002,0003
+Boot0001* UEFI:CD/DVD Drive     BBS(129,,0x0)
+Boot0002* UEFI:Removable Device BBS(130,,0x0)
+Boot0003* UEFI:Network Device   BBS(131,,0x0)
+Boot0004* Gentoo        HD(1,GPT,1f1766d8-33a9-5d44-b5f4-f4bf60c70c85,0x800,0x80000)/File(EFI\BOOT\BOOTX64.EFI)
+Boot0005* UEFI OS       HD(1,GPT,1f1766d8-33a9-5d44-b5f4-f4bf60c70c85,0x800,0x80000)/File(\EFI\BOOT\BOOTX64.EFI)
+
+
+(ssd-root) server /usr/src/linux # efibootmgr -c --part 1 --disk /dev/nvme0n1 -L "Gentoo on SSD" -l '\EFI\boot\bootx64.efi'
+BootCurrent: 0004
+Timeout: 0 seconds
+BootOrder: 0000,0004,0001,0002,0003
+Boot0001* UEFI:CD/DVD Drive     BBS(129,,0x0)
+Boot0002* UEFI:Removable Device BBS(130,,0x0)
+Boot0003* UEFI:Network Device   BBS(131,,0x0)
+Boot0004* Gentoo        HD(1,GPT,1f1766d8-33a9-5d44-b5f4-f4bf60c70c85,0x800,0x80000)/File(EFI\BOOT\BOOTX64.EFI)
+Boot0005* UEFI OS       HD(1,GPT,1f1766d8-33a9-5d44-b5f4-f4bf60c70c85,0x800,0x80000)/File(\EFI\BOOT\BOOTX64.EFI)
+Boot0000* Gentoo on SSD HD(1,GPT,962aa5a4-2a03-1140-84f1-c4ce5813ddde,0x800,0x80000)/File(\EFI\boot\bootx64.efi)
+
+
+```
+
+这个应该就好了
+
+```
+(ssd-root) server /usr/src/linux # mount /sys/firmware/efi/efivars -o ro,remount
+(ssd-root) server /usr/src/linux # exit
+server ~ # reboot 
+```
+
+肏你妈服务器起不起来了日

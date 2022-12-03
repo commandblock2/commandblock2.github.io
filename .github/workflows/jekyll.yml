@@ -43,13 +43,19 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v2
+      - name: Build with Jekyll for commandblock2.xyz
+        run: bundle exec jekyll build --baseurl "https://commandblock2.xyz/blog"
+      - name: Pack site
+        run: tar -czf site.tar.gz _site/*
+      - name: Remove site built for commandblock2.xyz
+        run: rm -rf _site/*
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
-      - name: Pack site
-        run: tar -czf _site/site.tar.gz _site/*
         env:
           JEKYLL_ENV: production
+      - name: Put the mirrored site
+        run: mv ./site.tar.gz _site/
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v1

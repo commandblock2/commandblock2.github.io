@@ -14,7 +14,7 @@ tags: [sys-admin, meta]
 看着还不错，就是评论服务看起来我都不太喜欢，希望哪天可以有时间整个 [cactus comment](https://cactus.chat)，正巧我手里有个matrix服务器
 
 #### 新博客和网站的结构
-你现在访问的这个博客有两份地址，[commandblock2.xyz](https://commandblock2.xyz/blog)，和 https://commandblock2.github.io (分享请用这个地址)  
+你现在访问的这个博客有两份地址，[commandblock2.xyz](https://commandblock2.xyz/blog)，和 [commandblock2.github.io](https://commandblock2.github.io) (分享请用这个地址)  
 `.github.io`的就很容易理解了嘛，commandblock2.xyz 解析到的vps在国外，因为国内不给开放80/443的端口，而且香港的话被当成梯子封起来就很难受了  
 
 为了
@@ -40,7 +40,7 @@ tags: [sys-admin, meta]
 | #3         | ???                             | 没有公网ip               | 所有的服务                | Gentoo       | synapse, minecraft, tinc, nginx, ... | 内网主机                                                                           |
 
 
-目前的计划是每次更新完blog，push到gayhub上用它的ci服务，直接做成gayhub pagees，然后在内网主机(#3)上wget定时爬下来这个页面，然后用`ssh` port-forward(over torjan)到commandblock2.xyz上面  
+目前的计划是每次更新完blog，push到gayhub上用它的ci服务，直接做成gayhub pagees，~~然后在内网主机(#3)上wget定时爬下来这个页面~~，[去你妈的wget](/)，然后用`ssh` port-forward(over torjan)到commandblock2.xyz上面  
 
 ##### Why not frp
 sshd永远是预装的，tinc/socat一般包管理器里都有，tinc功能比frp强，socat可以不用配置文件直接定时ssh过去就可以，另外frp是go写的听说有内存泄漏还没修 /笑

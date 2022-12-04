@@ -40,7 +40,7 @@ tags: [sys-admin, meta]
 | #3         | ???                             | 没有公网ip               | 所有的服务                | Gentoo       | synapse, minecraft, tinc, nginx, ... | 内网主机                                                                           |
 
 
-目前的计划是每次更新完blog，push到gayhub上用它的ci服务，直接做成gayhub pagees，~~然后在内网主机(#3)上wget定时爬下来这个页面~~，[去你妈的wget](posts/mirror-site)，然后用`ssh` port-forward(over torjan)到commandblock2.xyz上面  
+目前的计划是每次更新完blog，push到gayhub上用它的ci服务，直接做成gayhub pagees，~~然后在内网主机(#3)上wget定时爬下来这个页面~~，[去你妈的wget](../mirror-site)，然后用`ssh` port-forward(over torjan)到commandblock2.xyz上面  
 
 ##### Why not frp
 sshd永远是预装的，tinc/socat一般包管理器里都有，tinc功能比frp强，socat可以不用配置文件直接定时ssh过去就可以，另外frp是go写的听说有内存泄漏还没修 /笑

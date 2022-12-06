@@ -14,5 +14,10 @@ order: 4
 # 圆角?
 做梦
 
+# Site arch
+但不是 sitemap
+[Explained in the first post](../posts/fuck-wordpress/)
+
+
 # Old blog
 old blog: [https://commandblock2.xyz/blog-legacy/index.html](https://commandblock2.xyz/blog-legacy/index.html)

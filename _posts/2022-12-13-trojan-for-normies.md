@@ -1,8 +1,8 @@
 ---
 title: Trojan for Normies
 date: 2022-12-13 11:34:52 +0800
-categories: []
-tags: []
+categories: [tutorial]
+tags: [for-normies]
 ---
 
 # 本篇面向Windows用户  

@@ -1,9 +1,10 @@
 ---
-title: Minecraft Server Status Weekly Update \#2
+title: Minecraft Server Status Weekly Update #2
 date: 2022-12-25 22:40:57 +0800
 categories: [gaming, minecraft]
 tags: [minecraft]
 ---
+这个是post是本系列的第四篇了呢  
 依旧是摸鱼的一周  
 不过我想办法把GoTimeZ拉进来接着玩了(逃  
 而且我应该过两天会发个全服现有的机器(大多数都是丐中丐)  

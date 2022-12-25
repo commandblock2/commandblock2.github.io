@@ -1,5 +1,5 @@
 ---
-title: Minecraft Server Status Weekly Update
+title: Minecraft Server Status Weekly Update \#2
 date: 2022-12-25 22:40:57 +0800
 categories: [gaming, minecraft]
 tags: [minecraft]

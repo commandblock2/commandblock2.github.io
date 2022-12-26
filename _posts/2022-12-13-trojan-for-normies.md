@@ -31,10 +31,11 @@ trojan的名字来源于
     http://dl.commandblock2.xyz/dl/trojan-1.16.0-win.zip
 
 下载后解压zip，里面的文件大概是这样的  
-![img](/assets/img/Screenshot_20221213_114738.jpg)  
+![img](/assets/img/Screenshot_20221213_114738.jpg)
 右键config.json，拿记事本打开都行，什么文档编辑器都可以    
-![img](/assets/img/Screenshot_20221213_115207.webp)  
+![img](/assets/img/Screenshot_20221213_115207.webp)
 _注意密码写对了就行，粘贴都可以的_  
+
 把密码填上就行，
 如果你直接拿到了这篇博客，你手里应该有个我给你发的密码
 (游客别想白嫖(逃
@@ -42,8 +43,9 @@ _注意密码写对了就行，粘贴都可以的_
 **保存**  
 保存完成后，双击`trojan.exe`，如果有缺失dll的请运行一下`VC_redist.x64.exe`  
 然后你应该能看到这样的界面  
-![img](/assets/img/Screenshot_20221213_120926.webp)  
-_对不起我没找个windows的机器，只好在本机上拿一个好看一点的界面糊弄了(逃_   
+![img](/assets/img/Screenshot_20221213_120926.webp)
+_对不起我没找个windows的机器，只好在本机上拿一个好看一点的界面糊弄了(逃_  
+
 打开你的 Firefox，右上角菜单，设置，搜索`proxy`  
 ![img](/assets/img/Screenshot_20221213_120150.webp)
 填写成这个样子，点ok就好

@@ -1,5 +1,5 @@
 ---
-title: Minecraft Server Current State
+title: Minecraft Server Infrastructure
 date: 2022-12-26 15:38:04 +0800
 categories: [gaming, minecraft]
 tags: [minecraft]

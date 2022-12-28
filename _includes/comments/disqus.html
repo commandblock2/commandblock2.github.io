@@ -7,10 +7,11 @@
   <script>
   initComments({
     node: document.getElementById("comment-section"),
-    defaultHomeserverUrl: "https://matrix.cactus.chat:8448",
-    serverName: "cactus.chat",
+    defaultHomeserverUrl: "https://matrix.commandblock2.xyz:1443",
+    serverName: "matrix.commandblock2.xyz",
     siteName: "{{ site.comments.disqus.shortname }}",
-    commentSectionId: "{{ page.id }}"
+    commentSectionId: "{{ page.id }}",
+    loginEnabled: false
   })
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://cactus.chat" rel="nofollow">comments powered by matrix.org.</a></noscript>

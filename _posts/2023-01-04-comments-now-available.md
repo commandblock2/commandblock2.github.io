@@ -124,4 +124,4 @@ screen -S $SESSION -dm gunicorn -w 2 -b 127.0.0.1:5000 --timeout 500 "app:create
 ```
 
 `crontab`: `*/1 * * * * ~/cactus-appservice/cactus.sh`
-虽然这么做很不合适就是了，但是能用就行
+我知道这么做不是合适就是了，但是能用就行

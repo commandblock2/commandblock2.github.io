@@ -11,7 +11,8 @@ tags: [sys-admin, meta]
 啊哈哈哈哈哈哈，新博客来咯  
 
 新的博客用的是`jekyll`，支持`markdown`，右下角有更多介绍，随便找了个主题就开始用了  
-看着还不错，就是评论服务看起来我都不太喜欢，希望哪天可以有时间整个 [cactus comment](https://cactus.chat)，正巧我手里有个matrix服务器
+~~看着还不错，就是评论服务看起来我都不太喜欢，希望哪天可以有时间整个 [cactus comment](https://cactus.chat)，正巧我手里有个matrix服务器~~
+已经完成
 
 #### 新博客和网站的结构
 你现在访问的这个博客有两份地址，[commandblock2.xyz](https://commandblock2.xyz/blog)，和 [commandblock2.github.io](https://commandblock2.github.io) (分享请用这个地址)  

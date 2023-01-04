@@ -18,8 +18,8 @@ The TODO List that is showing on the blog, would get frequent update possibly
 
 | Name                  | Description                          | Link              | Other tips                             |
 |-----------------------|--------------------------------------|-------------------|----------------------------------------|
-| Matrix-Minecraft      | Make the bridge for Matrix-Minecraft | Not at the moment | Do make the sign link and image to map |
-| CactusChat in my blog | -                                    | Not at the moment |                                        |
+| Matrix-Minecraft      | Make the bridge for Matrix-Minecraft, halt at the moment, confused by appservice/homeserver/minecraft server/matrix room architecture | Not at the moment | Not at the moment | Do make the sign link and image to map |
+| CactusChat in my blog | Chat                                    | [Comments are now available](/_posts/2023-01-04-comments-now-available.md) |                                        |
 | Matrix-WechatBridge   | If current work, be a maintainer     | Not at the moment |                                        |
 
 
@@ -50,5 +50,4 @@ The TODO List that is showing on the blog, would get frequent update possibly
 | 50m butterfly             | in 30 second              | Not at the moment |            |
 
 ## Checked Items
-
-Not at the moment
+- cactus chat comment  

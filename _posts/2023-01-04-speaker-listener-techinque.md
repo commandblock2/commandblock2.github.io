@@ -4,8 +4,6 @@ date: 2023-01-04 22:18:55 +0800
 categories: [tutorial]
 tags: [for-everyone, psychology]
 ---
-# TODO: Finish these two new posts
-
 ## Intro
 有的时候我确实需要沟通一些*很难*的问题，但经常会遇到这样的情况
 - 回避  

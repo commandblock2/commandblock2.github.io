@@ -41,6 +41,8 @@ speak only in the service of understanding your partner.
 > Source: Adapted from Markman, H., Stanley, S., & Blumberg, S. L. Fighting for your marriage: Positive steps for preventing divorce and preserving a lasting love. San Francisco: Jossey-Bass, 1994.  
 
 > Copied from Intimate RelationShip Eighth Edition, page 356
+
+
 # 中文翻译
 ## 双方的规则
 1. 说话者拥有发言权。利用真实的小物件，比如一本书或电视遥控器作为发言权的标志。任何人拥有了发言权，就是唯一能说话的人，直到他/她说完为止。

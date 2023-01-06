@@ -2,7 +2,7 @@
 title: Minecraft Server Status Weekly Update (Nothing this week)
 date: 2022-12-18 23:32:27 +0800
 categories: [gaming, minecraft]
-tags: [minecraft]
+tags: [minecraft, zh-cn]
 ---
 
 不幸的是，我是个大鸽子，这周新冠基本上好了也没上线  

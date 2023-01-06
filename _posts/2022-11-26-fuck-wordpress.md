@@ -2,7 +2,7 @@
 title: FUCK wordpress
 date: 2022-11-26 16:58:58 +0800
 categories: [self-hosting, blogging]
-tags: [sys-admin, meta]
+tags: [sys-admin, meta, en-us/zh-cn]
 ---
 
 ## 新博客开张

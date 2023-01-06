@@ -2,7 +2,7 @@
 title: Minecraft Server Status Weekly Update 3
 date: 2023-01-02 16:33:41 +0800
 categories: [gaming, minecraft]
-tags: [minecraft, procrastinated]
+tags: [minecraft, procrastinated, zh-cn]
 ---
 没想到这个周更的也会咕咕咕一天  
 但是这周~~服务器里的进度还挺不少的~~

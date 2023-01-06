@@ -2,7 +2,7 @@
 title: Minecraft Server Status Weekly Update 0
 date: 2022-12-03 21:52:07 +0800
 categories: [gaming, minecraft]
-tags: [minecraft]
+tags: [minecraft, zh-cn]
 ---
 
 这个系列大概是个mc的服务器每周的总结吧。

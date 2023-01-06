@@ -2,7 +2,7 @@
 title: Minecraft Server Infrastructure
 date: 2022-12-26 15:38:04 +0800
 categories: [gaming, minecraft]
-tags: [minecraft]
+tags: [minecraft, zh-cn]
 ---
 这一个post介绍了本服现有的基础设施，截止到 `2022-12-26` 的时候大部分都是最基础的  
 本服使用 `purpur` 端，部分生电依赖的bug(如刷线)不可用，但tnt复制开启，刷沙复制开起，算是半个生电服，另一半算是田园吧  

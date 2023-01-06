@@ -2,7 +2,7 @@
 title: TODO List
 date: 2022-12-09 02:00:57 +0800
 categories: [misc]
-tags: [todo]
+tags: [todo, en-us]
 ---
 
 The TODO List that is showing on the blog, would get frequent update possibly

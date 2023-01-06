@@ -2,7 +2,7 @@
 title: Site Mirror | Blog Alternative Address
 date: 2022-12-03 21:52:07 +0800
 categories: [self-hosting, blogging]
-tags: [sys-admin, meta]
+tags: [sys-admin, meta, en-us]
 ---
 `wget` has been incapable of properly mirror this site, so I looked into the alternatives that can do this task properly.
 

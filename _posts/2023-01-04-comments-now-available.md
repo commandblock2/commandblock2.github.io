@@ -2,7 +2,7 @@
 title: Comments are now available
 date: 2023-01-04 15:21:04 +0800
 categories: [self-hosting, blogging]
-tags: [sys-admin, meta]
+tags: [sys-admin, meta, zh-cn]
 ---
 
 ![posting comment](/assets/img/screenshots/Screenshot_20230104_191941.webp)

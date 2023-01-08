@@ -5,5 +5,4 @@ categories: []
 tags: []
 ---
 
-## Waydroid Kernel Config
-If you wanted a .  
+This post will only be a archive of the 2 github issues I have mentioned.

@@ -30,3 +30,4 @@ old blog: [https://commandblock2.xyz/blog-legacy/index.html](https://commandbloc
 
 ## 友链
 - [venderbad.github.io](venderbad.github.io)
+

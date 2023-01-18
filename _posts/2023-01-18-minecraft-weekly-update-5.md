@@ -19,5 +19,5 @@ _出门大概也会被射_
 
 ## 贝贝农场 From [油管上之前没听说过的(印度?)人](https://www.youtube.com/watch?v=xefUnfrR_co)
 
-![shulker](/assets/img/minecraft/2023-01-18_19.46.34.png)
+![shulker](/assets/img/minecraft/2023-01-18_19.46.34.webp)
 _还挺好玩_

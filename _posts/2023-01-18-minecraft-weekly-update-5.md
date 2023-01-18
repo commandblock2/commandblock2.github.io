@@ -9,15 +9,15 @@ tags: [minecraft, procrastinated, zh-cn]
 
 ## Improved Pranking
 
-[![entrance](/assets/img/minecraft/vlcsnap-2023-01-18-21h15m09s636.webp)](/assets/video/enter.mp4 "Enter")
+[![entrance](/assets/img/minecraft/vlcsnap-2023-01-18-21h15m09s636.webp)](/assets/video/enter.mp4 "Enter")  
 _进门的时候跑得快还能被烫一下_
 
-[![exit](/assets/img/minecraft/vlcsnap-2023-01-18-21h15m33s841.webp)](/assets/video/exit.mp4 "Exit")
+[![exit](/assets/img/minecraft/vlcsnap-2023-01-18-21h15m33s841.webp)](/assets/video/exit.mp4 "Exit")  
 _出门大概也会被射_
 
 原本来自GoTimeZ，后来我改了改做成了地狱门可以碎掉然后坑人的地狱门(
 
 ## 贝贝农场 From [油管上之前没听说过的(印度?)人](https://www.youtube.com/watch?v=xefUnfrR_co)
 
-![shulker](/assets/img/minecraft/2023-01-18_19.46.34.webp)
+![shulker](/assets/img/minecraft/2023-01-18_19.46.34.webp)  
 _还挺好玩_

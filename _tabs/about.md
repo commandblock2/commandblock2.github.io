@@ -29,5 +29,5 @@ order: 4
 old blog: [https://commandblock2.xyz/blog-legacy/index.html](https://commandblock2.xyz/blog-legacy/index.html)
 
 ## 友链
-- [venderbad.github.io](venderbad.github.io)
+- [venderbad.github.io](https://venderbad.github.io)
 

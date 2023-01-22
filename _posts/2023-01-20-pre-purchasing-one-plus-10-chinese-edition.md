@@ -10,7 +10,7 @@ tags: [android]
 - 处理器: mtk 6895 听说还行
 - **oem-unlockable**
 - 到货不是很麻烦
-- twrp 也许可能快要有了
+- [twrp 也许可能快要有了](https://forum.xda-developers.com/t/twrp.4498747/post-87997307)
 
 ***
 

@@ -2,7 +2,7 @@
 title: 上周末(也许还有这周的)小海陀滑雪
 date: 2023-01-18 20:36:23 +0800
 categories: [personal-experience, sport]
-tags: [ski, work-in-progress]
+tags: [ski, work-in-progress, zh-cn]
 ---
 
 ## 上周末

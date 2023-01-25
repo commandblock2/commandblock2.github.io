@@ -2,7 +2,7 @@
 title: 购买 Oneplus 10国内特供版(一加 Ace 竞速版)前的考虑
 date: 2023-01-18 20:36:23 +0800
 categories: [purchasing, evaluation]
-tags: [android]
+tags: [android, zh-cn]
 ---
 
 

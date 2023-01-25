@@ -16,6 +16,7 @@ tags: [ski, zh-cn]
 [![ski-1](/assets/img/vlcsnap-2023-01-25-23h05m10s129.webp)](https://www.bilibili.com/video/BV16P4y1z7nb/ "ski-1")
 _视频拍摄来自于 船长_  
 如果可以在本站下面评论，别去b站，正好测试一下评论
+**这俩是视频，右键新标签页点进去是b站里的，后面的都是图片了**
 ## 这周四
 
 ![拥挤的初级道](/assets/img/mmexport0.jpg)

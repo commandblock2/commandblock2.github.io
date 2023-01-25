@@ -8,6 +8,7 @@ tags: [minecraft, zh-cn]
 本服使用 `purpur` 端，部分生电依赖的bug(如刷线)不可用，但tnt复制开启，刷沙复制开起，算是半个生电服，另一半算是田园吧  
 我还是比较喜欢 playing the intended way
 
+**服务器地图种子: `36206917759415335`**
 ## 出生点周边
 ![出生点周围的样子2022-12-26](/assets/img/minecraft/2022-12-26_14.18.17.webp)
 

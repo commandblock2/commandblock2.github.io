@@ -14,7 +14,7 @@ tags: [ski, zh-cn]
 [![ski-0](/assets/img/vlcsnap-2023-01-25-23h06m29s947.webp)](https://www.bilibili.com/video/BV1nY4y1o78s/ "ski-0")
 
 [![ski-1](/assets/img/vlcsnap-2023-01-25-23h05m10s129.webp)](https://www.bilibili.com/video/BV16P4y1z7nb/ "ski-1")
-_视频拍摄来自于 船长_
+_视频拍摄来自于 船长_  
 如果可以在本站下面评论，别去b站，正好测试一下评论
 ## 这周四
 

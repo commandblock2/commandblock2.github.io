@@ -5,7 +5,7 @@ categories: [owned-device, embedded-and-mobile, android-phone]
 tags: [android, flashing, major-fuckup, work-in-progress, zh-cn]
 ---
 
-嘿这不这个 OnePlus ACE Racing到货了，一加这个支持bootloader unlock的名声还是挺出名的，那肯定到手第一件事情必是这个解了锁往里刷点啥吧，结果没想到，用这个 OnePlus 10 R 印度版的OxygenOS刷进去，诶嘿，黑砖了  
+嘿这不这个 OnePlus ACE Racing到货了，一加这个支持bootloader unlock的名声还是挺出名的，那肯定到手第一件事情必是解了锁往里刷点啥吧，结果没想到，用这个 OnePlus 10 R 印度版的OxygenOS刷进去，诶嘿，黑砖了  
 不想看碎碎念的跳到[总结](#总结)
 
 ## 详细的事发经过  

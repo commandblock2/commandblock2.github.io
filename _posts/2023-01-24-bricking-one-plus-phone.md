@@ -22,9 +22,13 @@ tags: [android, flashing, major-fuckup, work-in-progress, zh-cn]
 于是呢我就用 Oxygen Downloader 挂着印度的梯子下了一下午的 10 R的OxygenOS([因为常用的梯子被限速了](/posts/fuck-wordpress/))。 
 刷之前读明白了[自从A/B分区有了之后]() `adb reboot fastboot` 启到的才是fastboot，`fastboot reboot bootloader`才是原来的fastboot，而且recovery用的内核好像变成了系统的内核  
 在`bootloader`下解锁了刷机  
-然后先看看分区的状况是啥样的吧   
+然后先看看分区的状况是啥样的吧  
 
-[跳过巨长无比的输出](#跳过的标签)
+![bootloader](/assets/img/IMG20230122143414.jpg)
+_flashing unlock_
+
+![bootloader](/assets/img/IMG20230122143349.jpg)
+_近一点_
 
 ```
 (bootloader)    off-mode-charge: 1
@@ -412,8 +416,3 @@ tags: [android, flashing, major-fuckup, work-in-progress, zh-cn]
 (bootloader) unlocked:yes
 ```
 
-#### 跳过的标签
-
-## 总结
-
-## 各种 Reference

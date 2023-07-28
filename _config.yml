@@ -43,6 +43,7 @@ social:
   email: fucking@email.no             # change to your email address
   links:
     # The first element serves as the copyright owner's link
+    - https://matrix.to/#/@commandblock2:matrix.org 
     - https://matrix.to/#/@commandblock2:matrix.commandblock2.xyz 
     # Uncomment below to add more social links
     # - https://www.facebook.com/username

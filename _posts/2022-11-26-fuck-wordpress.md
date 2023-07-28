@@ -38,7 +38,7 @@ tags: [sys-admin, meta, en-us/zh-cn]
 | #1         | 24￥ + .8￥ * outbound / GB / Mon | mc.commandblock2.xyz     | mc服地址 / 回家用的穿透服 | Debian       | tinc/socat/sshd                      | tinc组建软件局域网，socat转发mc流量，这个是阿里云的ecs，minimal spec按流量计费        |
 | #2         | 35￥/ Year (明年就换)            | lbw.mc.commandblock2.xyz | 低带宽mc服地址            | Debian       | sshd                                 | ssh远程端口转发流量                                                                |
 | #2         |                                 | lbw.commandblock2.xyz    |                           |              | sshd                                 | 上面的alias                                                                        |
-| #2         |                                 | matrix.commandblock2.xyz | matrix服务器地址          |              | sshd                                 | 联邦用端口8848/本服流量1443                                                        |
+| #2         |                                 | matrix.commandblock2.xyz | matrix服务器地址          |              | sshd                                 | 联邦用端口8848/本服流量443                                                        |
 | #3         | ???                             | 没有公网ip               | 所有的服务                | Gentoo       | synapse, minecraft, tinc, nginx, ... | 内网主机                                                                           |
 
 

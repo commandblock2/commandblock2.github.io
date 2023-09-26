@@ -2,7 +2,7 @@
 title: Migrating to SSD (Homeserver)
 date: 2022-11-27 18:14:26 +0800
 categories: [self-hosting]
-tags: [sys-admin, zh-cn]
+tags: [sys-admin, zh-cn, problem-solving]
 ---
 
 ## Previous

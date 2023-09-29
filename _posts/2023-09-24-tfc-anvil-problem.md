@@ -113,4 +113,65 @@ function iterate() {
 我在写这段代码的时候感觉到其实有一个更优美更高效的解法，但是这个对我来说，好像差不多够用了。
 ## 解法
 这道题看起来像是一个凑硬币的变体，带上具体路径的变体。但这个问题和dp不一样的地方是硬币的面值不能是负值，这就意味着硬币每加一个，那么总和一定会更多。但在这里面，总和可能会更少。也就可能会出现`dp[99]` > `dp[100]`的情况。  
-那这道题是什么呢? 相比于dp,我更愿意把这个东西看成一个 Dijkstra 的题。虽然我在写的时候用的变量名叫做path但是我确实没有意识到这是一个可以用最短路径类的算法来解的题。
+实际上是个简单的dfs,不过这个rust版本花了我不知道多长时间才写出来。
+
+```rust
+fn anvil_solve(possible_ops: &mut Vec<i32>, target_value: i32) -> Vec<i32> {
+    possible_ops.sort();
+
+    let n = (possible_ops.last().unwrap() + target_value) as usize;
+
+    let mut visited = vec![false; n];
+
+    visited[0] = true;
+
+    let mut iteration = possible_ops
+        .iter()
+        .map(|e| (*e, vec![*e; 1]))
+        .collect::<Vec<_>>();
+
+    let mut path = vec![0; 0];
+
+    for _ in 0..n {
+        let visited_clone = visited.clone();
+        // this got me so confused, why do I must write this
+
+        let this = iteration.iter().flat_map(|it| {
+            let ops = possible_ops.iter().filter(|op| {
+                let pos = (it.0 + *op) as usize;
+                pos < n && !visited_clone[pos]
+            });
+
+            for op in ops.clone() {
+                if it.0 + *op == target_value {
+                    let mut found = it.1.clone();
+                    found.push(*op);
+                    path = found;
+                }
+                visited[(it.0 + *op) as usize] = true;
+            }
+
+            ops.map(|op| {
+                let mut path = it.1.clone();
+                path.push(op.clone());
+                (it.0 + op, path)
+            })
+            .collect::<Vec<_>>()
+        });
+
+        iteration = this.collect();
+    }
+
+    path
+}
+
+pub fn main() {
+    let mut anvil_actions = vec![-15, -9, -6, -3, 2, 7, 13, 16];
+    for step in anvil_solve(& mut anvil_actions, 25) {
+        print!("{} ", step);
+    }
+    
+}
+```
+
+确实是十分坐牢就是了

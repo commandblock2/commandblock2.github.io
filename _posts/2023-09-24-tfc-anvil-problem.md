@@ -6,7 +6,7 @@ tags: [problem-solving, dynamic-programming, zh-cn]
 ---
 ## 问题介绍
 铁砧是TFC(群峦)模组中一个很重要的组成，是一种不可避免的合成物品的机制。当你打开一个铁砧时，会出现如下的界面。
-![Anvil](../assets/img/minecraft/Screenshot_20230924_231152.webp)  
+![Anvil](/assets/img/minecraft/Screenshot_20230924_231152.webp)  
 下面是一个进度条，你需要通过4个红色按钮和4个绿色按钮来将一个金属锭加工成你想要的东西。每一个按钮的会不同程度的将进度条左移或者右移，当进度条中的绿色游标**正好**对准红色目标时，你才会获取物品。只对算法感兴趣的童鞋请跳到 [#算法模型](#算法模型)。当操作次数足够小的时候会有更高的奖励。
 ## 问题调查
 对于我来说，我非常讨厌这种重复性的工作，我希望我可以最省事的做完这样的操作。那么第一件事就是上github上翻番源码，虽然我找到过铁砧的计算器，但是我不是很满意这个算法的实现，那就只好自己调查一下了。首先很快找到TFC repo里跟铁砧有关的代码，很快就找到了这个 `TerraFirmaCraft/src/main/java/net/dries007/tfc/common/recipes/AnvilRecipe.java`。凭借着cpp基础(不是)随便就可以读Java代码不费一点劲。

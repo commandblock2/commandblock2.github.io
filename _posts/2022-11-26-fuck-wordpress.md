@@ -15,7 +15,7 @@ tags: [sys-admin, meta, en-us/zh-cn]
 已经完成
 
 #### 新博客和网站的结构
-你现在访问的这个博客有两份地址，[commandblock2.xyz](https://commandblock2.xyz/blog)，和 [commandblock2.github.io](https://commandblock2.github.io) (分享请用这个地址)  
+你现在访问的这个博客有两份地址，[commandblock2.xyz/blog](https://commandblock2.xyz/blog)(这个地址可能会比较灵车，因为是国内端口映射过去的)，和 [commandblock2.github.io](https://commandblock2.github.io) (分享请用这个地址)  
 `.github.io`的就很容易理解了嘛，commandblock2.xyz 解析到的vps在国外，因为国内不给开放80/443的端口，而且香港的话被当成梯子封起来就很难受了  
 
 为了
@@ -34,15 +34,14 @@ tags: [sys-admin, meta, en-us/zh-cn]
 |------------|---------------------------------|--------------------------|---------------------------|--------------|--------------------------------------|------------------------------------------------------------------------------------|
 | #0         | 3.5$ / Mon                      | commandblock2.xyz        | website hosting           | Debian       | nginx                                | 外网vultr租的一台机器，minimal spec                                                 |
 | #0         |                                 | dl.commandblock2.xyz     | 下载站                    |              | nginx                                | 跟上面是同一个服务器，多一个sni，外网带宽真他妈便宜，文件用scp/sftp上传，用nginx serve |
-| #0         |                                 | vpn.commandblock2.xyz    | 梯子                      |              | trojan                               | 想不到吧名目张胆的用这个域名到现在还活着                                           |
-| #1         | 24￥ + .8￥ * outbound / GB / Mon | mc.commandblock2.xyz     | mc服地址 / 回家用的穿透服 | Debian       | tinc/socat/sshd                      | tinc组建软件局域网，socat转发mc流量，这个是阿里云的ecs，minimal spec按流量计费        |
+| #1         | 24￥ + .8￥ * outbound / GB / Mon | mc.commandblock2.xyz     | mc服地址 / 回家用的穿透服 | Debian       | tinc/socat/sshd                      | tinc组建软件局域网，socat转发mc流量，这个是阿里云的ecs，minimal spec按流量计费，不幸的是没人陪我玩mc,我就把这个服关掉了        |
 | #2         | 35￥/ Year (明年就换)            | lbw.mc.commandblock2.xyz | 低带宽mc服地址            | Debian       | sshd                                 | ssh远程端口转发流量                                                                |
 | #2         |                                 | lbw.commandblock2.xyz    |                           |              | sshd                                 | 上面的alias                                                                        |
 | #2         |                                 | matrix.commandblock2.xyz | matrix服务器地址          |              | sshd                                 | 联邦用端口8848/本服流量443                                                        |
 | #3         | ???                             | 没有公网ip               | 所有的服务                | Gentoo       | synapse, minecraft, tinc, nginx, ... | 内网主机                                                                           |
 
 
-目前的计划是每次更新完blog，push到gayhub上用它的ci服务，直接做成gayhub pagees，~~然后在内网主机(#3)上wget定时爬下来这个页面~~，[去你妈的wget](../mirror-site)，然后用`ssh` port-forward(over trojan)到commandblock2.xyz上面  
+目前的计划是每次更新完blog，push到gayhub上用它的ci服务，直接做成gayhub pagees，~~然后在内网主机(#3)上wget定时爬下来这个页面~~，[但是wget不好使](../mirror-site)，然后用`ssh` port-forward(over trojan)到commandblock2.xyz上面  
 
 ##### Why not frp
 sshd永远是预装的，tinc/socat一般包管理器里都有，tinc功能比frp强，socat可以不用配置文件直接定时ssh过去就可以，另外frp是go写的听说有内存泄漏还没修 /笑
@@ -51,8 +50,8 @@ sshd永远是预装的，tinc/socat一般包管理器里都有，tinc功能比fr
 - uses php, 
 - installed by `portage` but need frequent update.  
 - "official" markdown support as in plugin.  
-- not fucking responsive at all when 网不好, especially for writing a blog post.
+- not responsive when having a bad connection, especially for writing a blog post, absolutely garbage experience.
 
 ## 旧博客怎么了
-自从wordpress开始麻烦之后，我就用`wget`爬下了旧的站，做成静态的放在这个地址  
+自从wordpress开始麻烦之后，我就用`wget`爬下了旧的站，做成静态的放在这个地址，搜索功能应该不太能使，但是就一页  
 old blog: [https://commandblock2.xyz/blog-legacy/index.html](https://commandblock2.xyz/blog-legacy/index.html)

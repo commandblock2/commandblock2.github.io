@@ -12,7 +12,7 @@ I successfully fix my browser crashing with
 ```
 **not by disabling sandbox**.
 This crash happens in both librewolf(firefox) and qtwebengine(chromium) based browsers, and this problem is only possible to be true for the package maintainer/developers to come across.  
-The problem happened after a certain update and it took me a long time to find out.
+The problem happened after a certain update and it took me a long time to find out.  
 ***
 ### A little explanation
 So for those who doesn't understand what gentoo is, it basically is a linux that have you compile and configure everything. So problems like this might never happen elsewhere.  

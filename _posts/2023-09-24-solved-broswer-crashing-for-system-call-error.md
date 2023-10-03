@@ -156,3 +156,76 @@ To enable these features I simply add a file
 ```bash
 www-client/librewolf noccache j8 installsources debugsyms
 ```
+
+***
+
+To set a breakpoint in gdb to catch system-call you simply do 
+```
+(gdb) catch syscall 441
+Catchpoint 1 (syscall 'epoll_pwait2' [441])
+```
+The two self compiled browsers gives their stacktrace on syscall 441 respectively, and surprisingly that all of them are in `libevent`(not surprising that epoll_pwait2 is implemented in libc lmao).
+```
+#0  0x00007ffff7c37f6d in epoll_pwait2 () at /lib64/libc.so.6
+#1  0x00007fffeb7a15bf in  () at /usr/lib64/libevent_core-2.2.so.1
+#2  0x00007fffeb7967b2 in event_base_loop () at /usr/lib64/libevent_core-2.2.so.1
+#3  0x00007ffff0980328 in  () at /usr/lib64/librewolf/libxul.so
+#4  0x00007fffefffefcd in  () at /usr/lib64/librewolf/libxul.so
+#5  0x00007ffff065f6c4 in  () at /usr/lib64/librewolf/libxul.so
+#6  0x00007ffff110a83a in  () at /usr/lib64/librewolf/libxul.so
+#7  0x00007ffff7bb804c in  () at /lib64/libc.so.6
+#8  0x00007ffff7c37c0c in  () at /lib64/libc.so.6
+```
+```
+
+Thread 24 "Chrome_IOThread" hit Catchpoint 1 (call to syscall 441), 0x00007ffff6b5df6d in epoll_pwait2 () from /lib64/libc.so.6
+(gdb) bt
+#0  0x00007ffff6b5df6d in epoll_pwait2 () from /lib64/libc.so.6
+#1  0x00007fffec855e8f in ?? () from /usr/lib64/libevent-2.2.so.1
+#2  0x00007fffec84b082 in event_base_loop () from /usr/lib64/libevent-2.2.so.1
+#3  0x00007ffff149f2d8 in ?? () from /usr/lib64/libQt5WebEngineCore.so.5
+#4  0x00017fff88000030 in ?? ()
+#5  0x00007fff937fdba8 in ?? ()
+#6  0x00007ffff64fcda0 in ?? () from /usr/lib64/libQt5WebEngineCore.so.5
+#7  0x00007fff937fdbf0 in ?? ()
+#8  0x0000000000000000 in ?? ()
+```
+
+From now I started to think it might be `libevent` but there has yet to be any solid proof for that.
+
+```c
+(gdb) frame 1
+#1  0x00007fffeb7a1480 in epoll_dispatch (base=0x7ffff78b2b00, tv=<optimized out>) at /usr/src/debug/dev-libs/libevent-9999/libevent-9999/epoll.c:517
+517             res = epoll_pwait2(epollop->epfd, events, epollop->nevents, tv ? &ts : NULL, NULL);
+(gdb) list
+507                     }
+508     #endif /* EVENT__HAVE_EPOLL_PWAIT2 */
+509             }
+510
+511             epoll_apply_changes(base);
+512             event_changelist_remove_all_(&base->changelist, base);
+513
+514             EVBASE_RELEASE_LOCK(base, th_base_lock);
+515
+516     #if defined(EVENT__HAVE_EPOLL_PWAIT2)
+517             res = epoll_pwait2(epollop->epfd, events, epollop->nevents, tv ? &ts : NULL, NULL);
+518     #else /* no epoll_pwait2() */
+519             res = epoll_wait(epollop->epfd, events, epollop->nevents, timeout);
+520     #endif /* EVENT__HAVE_EPOLL_PWAIT2 */
+521
+522             EVBASE_ACQUIRE_LOCK(base, th_base_lock);
+523
+524             if (res == -1) {
+525                     if (errno != EINTR) {
+526                             event_warn("epoll_wait");
+```
+
+Actually by comparing the parameter of epoll_pwait2 when using `librewolf` and `librewolf-bin` I found that there are some difference, but I don't recall which is different. I stopped investigating here and used the binary package for a while.
+
+### Asking for help in gentoo community
+
+I was then [asking if any have seen this error in the gentoo matrix room](https://matrix.to/#/!aZUzMIEZvEwnDquxLf:neko.dev/$HhWfqHoljo1lwsOhqVHh-YYn8Ai4drLs708CVPb_ZtY?via=matrix.org&via=tchncs.de&via=envs.net). And after posting relavent information, some said that `epoll_wait2` is a relatively common system-call, which should be implemented in most cases. And no one seems to know anything about that.
+
+
+### Eventually
+After somedays later I got some freetime and decided to follow the compliation guide of librewolf, to compile it manually without the help of portage, after a while setting up the compiling environment and 1 hour of compiling, it magically starts without a problem.

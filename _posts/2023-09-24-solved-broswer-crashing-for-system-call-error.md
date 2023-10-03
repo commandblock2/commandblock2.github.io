@@ -228,4 +228,27 @@ I was then [asking if any have seen this error in the gentoo matrix room](https:
 
 
 ### Eventually
-After somedays later I got some freetime and decided to follow the compliation guide of librewolf, to compile it manually without the help of portage, after a while setting up the compiling environment and 1 hour of compiling, it magically starts without a problem.
+After somedays later I got some freetime and decided to follow the compliation guide of librewolf, to compile it manually without the help of portage, after a while setting up the compiling environment and 1 hour of compiling, it magically starts without a problem.  
+That means the only possible error is because I built librewolf with `portage`, gcc is fine, kernel is fine, everything is fine, except for using portage is not fine.  
+And with the previous suspection for `libevent`, I looked into the use of librewolf.
+```emerge
+[ebuild   R   ~] www-client/librewolf-117.0_p1:0/117::librewolf  USE="X clang dbus geckodriver gmp-autoupdate 
+hardened jumbo-build lto pgo pulseaudio screencast system-av1 system-harfbuzz system-icu system-jpeg 
+system-libevent system-libvpx system-webp wayland -debug -eme-free -hwaccel -jack -libproxy -openh264 (-selinux) 
+-sndio -system-png (-system-python-libs) -telemetry -valgrind -wifi" L10N="-ach -af -an -ar -ast -az -be -bg -bn 
+-br -bs -ca -ca-valencia -cak -cs -cy -da -de -dsb -el -en-CA -en-GB -eo -es-AR -es-CL -es-ES -es-MX -et -eu -fa 
+-ff -fi -fr -fur -fy -ga -gd -gl -gn -gu -he -hi -hr -hsb -hu -hy -ia -id -is -it -ja -ka -kab -kk -km -kn -ko 
+-lij -lt -lv -mk -mr -ms -my -nb -ne -nl -nn -oc -pa -pl -pt-BR -pt-PT -rm -ro -ru -sc -sco -si -sk -sl -son -sq 
+-sr -sv -szl -ta -te -th -tl -tr -trs -uk -ur -uz -vi -xh -zh-CN -zh-TW" 0 KiB
+```
+Ah what about disabling `system-libevnet`? It works like a charm. And librewolf started working again.  
+[After reporting the partial solution](https://matrix.to/#/!aZUzMIEZvEwnDquxLf:neko.dev/$3YpZvoYEhRGomVDbOOy0p31orX_eMyBAu_agKiSVOpo?via=matrix.org&via=tchncs.de&via=envs.net), someone told me that using a `-9999` live package is something that I should be aware of. And switching back to the normal unstable package and re-enabling `system-libevent` finally fixes all browser crashing on my system.
+
+## Further
+
+It's like that there are some problems that I could go dig deeper which I didn't because it is not considered as very interesting or exteremly important.
+
+- Do a diff of the source of the current unstable `libevent` and live package to see what happend.
+- To thoughly read the documentation of `epoll_wait2` and examine if the corresponding registers are correctly set.
+
+Although at the moment I still don't have the idea of why this problem happens, I somehow fixed it and learnt a lot of skill and idk some knowledge.

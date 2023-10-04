@@ -12,9 +12,9 @@ I successfully fix my browser crashing with
 **CRASHING**:seccomp-bpf failure in syscall 0441
 ```
 **not by disabling sandbox**.  
-This crash happens in both librewolf(firefox) and qtwebengine(chromium) based browsers, and this problem is only possible to be true for the package maintainer/developers to come across.  
+This crash happens in both librewolf(firefox) and qtwebengine(chromium) based browsers, and this problem is only possible for the package maintainer/developers to come across.  
 The problem happened after a certain update and it took me a long time to resolve.  
-This maybe a little bit of misleading because I didn't modify a single line of code of the browsers.
+This maybe a little bit of misleading because I didn't modify a single line of code of the browsers or patch anything.
 
 ***
 
@@ -25,7 +25,8 @@ The following condition are not met on other distributions, in my installation I
 - many packages compiled with `-O3` (considered not so safe to do)
 - a mixed system that uses stable,unstable and live packages 
 
-live package sources are fetched on the fly and usually from some branch using version control system. 
+live package sources are fetched on the fly and usually from some branch using version control system.  
+Usually disabling aggressive optimization flags workes for me.
 #### Terms & packages to know about 
 - qtwebengine: a huge package to compile and takes like more than 2 hour to complete on my cpu.  
 - libevent: a very important infrastructure of many network dependent packages (including chromium and firefox).
@@ -228,7 +229,7 @@ Actually by comparing the parameter of epoll_pwait2 when using `librewolf` and `
 
 ### Asking for help in gentoo community
 
-I was then [asking if any have seen this error in the gentoo matrix room](https://matrix.to/#/!aZUzMIEZvEwnDquxLf:neko.dev/$HhWfqHoljo1lwsOhqVHh-YYn8Ai4drLs708CVPb_ZtY?via=matrix.org&via=tchncs.de&via=envs.net). And after posting relavent information, some said that `epoll_wait2` is a relatively common system-call, which should be implemented in most cases. And no one seems to know anything about that.
+I was then [asking if any have seen this error in the gentoo matrix room](https://matrix.to/#/!aZUzMIEZvEwnDquxLf:neko.dev/$HhWfqHoljo1lwsOhqVHh-YYn8Ai4drLs708CVPb_ZtY?via=matrix.org&via=tchncs.de&via=envs.net). And after posting relavent information, some said that `epoll_wait2` is a relatively common system-call, which should be implemented in most cases. And no one seems to have any idea about my problem specificly.
 
 
 ### Eventually
@@ -246,7 +247,7 @@ system-libevent system-libvpx system-webp wayland -debug -eme-free -hwaccel -jac
 -sr -sv -szl -ta -te -th -tl -tr -trs -uk -ur -uz -vi -xh -zh-CN -zh-TW" 0 KiB
 ```
 Ah what about disabling `system-libevnet`? It works like a charm. And librewolf started working again.  
-[After reporting the partial solution](https://matrix.to/#/!aZUzMIEZvEwnDquxLf:neko.dev/$3YpZvoYEhRGomVDbOOy0p31orX_eMyBAu_agKiSVOpo?via=matrix.org&via=tchncs.de&via=envs.net), someone told me that using a `-9999` live package is something that I should be aware of. And switching back to the normal unstable package and re-enabling `system-libevent` finally fixes all browser crashing on my system.
+[After reporting the partial solution](https://matrix.to/#/!aZUzMIEZvEwnDquxLf:neko.dev/$3YpZvoYEhRGomVDbOOy0p31orX_eMyBAu_agKiSVOpo?via=matrix.org&via=tchncs.de&via=envs.net), someone told me that using a `-9999` live package is something that I should be aware of. And switching back to the unstable package(which is a bit more stable than the live version) and re-enabling `system-libevent` finally fixes all browser crashing on my system.
 
 ## Further
 

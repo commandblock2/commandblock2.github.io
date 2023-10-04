@@ -8,12 +8,16 @@ tags: [sys-admin, problem-solving, gdb, gentoo]
 
 I successfully fix my browser crashing with
 ```
-../../../../qtwebengine-5.15.9_p20230421/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc:**CRASHING**:seccomp-bpf failure in syscall 0441
+../../../../qtwebengine-5.15.9_p20230421/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc:
+**CRASHING**:seccomp-bpf failure in syscall 0441
 ```
-**not by disabling sandbox**.
+**not by disabling sandbox**.  
 This crash happens in both librewolf(firefox) and qtwebengine(chromium) based browsers, and this problem is only possible to be true for the package maintainer/developers to come across.  
-The problem happened after a certain update and it took me a long time to find out.  
+The problem happened after a certain update and it took me a long time to resolve.  
+This maybe a little bit of misleading because I didn't modify a single line of code of the browsers.
+
 ***
+
 ### A little explanation
 So for those who doesn't understand what gentoo is, it basically is a linux that have you compile and configure everything. So problems like this might never happen elsewhere.  
 The following condition are not met on other distributions, in my installation I have:
@@ -112,7 +116,7 @@ However, I found that [disabling sandbox](https://wiki.mozilla.org/Security/Sand
 
 ### dmesg
 Since its system-call, dmesg is kernel message, which should be working very well.  
-By using `dmesg -w` while opening browser, I see such errors.
+By using `dmesg -w` while launching browser, I see such errors.
 
 ```
 [ 1965.710322] Code: e7 e8 c6 fc ff ff 41 8b 44 24 10 49 8b 54 24 18 bf 01 00 00 00 c1 e0 0c c1 e2 14 25 00 f0 0f 00 81 e2 00 00 f0 0f 09 d0 09 d8 <67> c6 00 00 25 ff 0f 00 00 67 c6 00 00 e8 70 68 05 fd 55 be 91 00
@@ -127,7 +131,7 @@ By using `dmesg -w` while opening browser, I see such errors.
 [ 1965.734385] Code: e7 e8 c6 fc ff ff 41 8b 44 24 10 49 8b 54 24 18 bf 01 00 00 00 c1 e0 0c c1 e2 14 25 00 f0 0f 00 81 e2 00 00 f0 0f 09 d0 09 d8 <67> c6 00 00 25 ff 0f 00 00 67 c6 00 00 e8 70 68 05 fd 55 be 91 00
 ```
 
-At that time I had absolutely no idea what this Code means in this message. And now that I have learnt how system-calls work, my guess is that these are the arguments of that system-call aka the registers dump probably. But I have yet to verify that point or to see what is actually in the faulty registers.
+And now that I have learnt how system-calls work, my guess is that these are the arguments of that system-call aka the registers dump probably. But I have yet to verify that point or to see what is actually wr0ng in the registers.
 
 Not knowing what to do I then continued to ask GPT what could I do to debug a browser crash, then it mentioned gdb, and then I recalled that there a dedicated wiki page for users to debug a package installed on system on gentoo wiki.
 
@@ -229,8 +233,8 @@ I was then [asking if any have seen this error in the gentoo matrix room](https:
 
 ### Eventually
 After somedays later I got some freetime and decided to follow the compliation guide of librewolf, to compile it manually without the help of portage, after a while setting up the compiling environment and 1 hour of compiling, it magically starts without a problem.  
-That means the only possible error is because I built librewolf with `portage`, gcc is fine, kernel is fine, everything is fine, except for using portage is not fine.  
-And with the previous suspection for `libevent`, I looked into the use of librewolf.
+That means the only possible error is because I built librewolf with `portage`, gcc/clang is fine, kernel is fine, everything is fine, except for using portage is not fine.  
+And with the previous suspection for `libevent`, I looked into the `USE` flags of librewolf.
 ```emerge
 [ebuild   R   ~] www-client/librewolf-117.0_p1:0/117::librewolf  USE="X clang dbus geckodriver gmp-autoupdate 
 hardened jumbo-build lto pgo pulseaudio screencast system-av1 system-harfbuzz system-icu system-jpeg 
@@ -249,6 +253,11 @@ Ah what about disabling `system-libevnet`? It works like a charm. And librewolf 
 It's like that there are some problems that I could go dig deeper which I didn't because it is not considered as very interesting or exteremly important.
 
 - Do a diff of the source of the current unstable `libevent` and live package to see what happend.
-- To thoughly read the documentation of `epoll_wait2` and examine if the corresponding registers are correctly set.
+- To thoughly read the documentation(probably linux system-calls) of `epoll_wait2` and examine if the corresponding registers are correctly set.
 
 Although at the moment I still don't have the idea of why this problem happens, I somehow fixed it and learnt a lot of skill and idk some knowledge.
+
+What I have learnt:
+- debugging a package installed by portage
+- some basic gdb skills
+- where to look if system-call error happens (strace can also be helpful but not mentioned in this post)

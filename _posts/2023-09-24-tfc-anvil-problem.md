@@ -113,7 +113,7 @@ function iterate() {
 我在写这段代码的时候感觉到其实有一个更优美更高效的解法，但是这个对我来说，好像差不多够用了。
 ## 解法
 这道题看起来像是一个凑硬币的变体，带上具体路径的变体。但这个问题和dp不一样的地方是硬币的面值不能是负值，这就意味着硬币每加一个，那么总和一定会更多。但在这里面，总和可能会更少。也就可能会出现`dp[99]` > `dp[100]`的情况。  
-实际上是个简单的dfs,不过这个rust版本花了我不知道多长时间才写出来。
+实际上是个简单的bfs,不过这个rust版本花了我不知道多长时间才写出来。
 
 ```rust
 fn anvil_solve(possible_ops: &mut Vec<i32>, target_value: i32) -> Vec<i32> {
@@ -125,7 +125,7 @@ fn anvil_solve(possible_ops: &mut Vec<i32>, target_value: i32) -> Vec<i32> {
 
     let n = (possible_ops.last().unwrap() + target_value) as usize;
 
-    let mut visited: Vec<bool> = vec![false; n];
+    let mut visited = vec![false; n];
 
     visited[0] = true;
 

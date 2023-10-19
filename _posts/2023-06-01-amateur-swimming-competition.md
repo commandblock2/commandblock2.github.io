@@ -7,4 +7,4 @@ tags: [work-in-progress, en-us]
 
 Butterfly swimming. 36 second for 50m. Plenty space for improvement.
 
-[video]()
+[video](https://www.bilibili.com/video/BV1ST411x7xk/)

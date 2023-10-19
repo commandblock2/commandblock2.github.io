@@ -15,7 +15,7 @@ tags: [sys-admin, meta, en-us/zh-cn]
 已经完成
 
 #### 新博客和网站的结构
-你现在访问的这个博客有两份地址，[commandblock2.xyz/blog](https://commandblock2.xyz/blog)(这个地址可能会比较灵车，因为是国内端口映射过去的)，和 [commandblock2.github.io](https://commandblock2.github.io) (分享请用这个地址)  
+这个博客有两份地址，[commandblock2.xyz/blog](https://commandblock2.xyz/blog)(这个地址可能会比较灵车，因为是国内端口映射过去的)，和 [commandblock2.github.io](https://commandblock2.github.io) (分享请用这个地址)  
 `.github.io`的就很容易理解了嘛，commandblock2.xyz 解析到的vps在国外，因为国内不给开放80/443的端口，而且香港的话被当成梯子封起来就很难受了  
 
 为了
@@ -25,8 +25,8 @@ tags: [sys-admin, meta, en-us/zh-cn]
 - 方便维护  
 - ...  
 
-所有我需要稳定依赖的服务全部都放在了家里的一台空闲的桌面机(曾经是桌面)上，~~但是我家没有ipv6也没有公网ip，肏你妈傻逼运营商~~  
-经过调查，我家确实有ipv6而且有ipv6的公网ip，但是问题在哪呢，那个光猫的port forwarding不工作    
+所有我需要稳定依赖的服务全部都放在了家里的一台空闲的桌面机(曾经是桌面)上，  
+经过调查，我家确实有ipv6而且有ipv6的公网ip，但是问题在光猫的port forwarding不工作    
 
 那怎么办呢，那就只好买vps当公网ip/流量转发了，下面这个表就是整个站的拓卜结构了
 
@@ -41,7 +41,7 @@ tags: [sys-admin, meta, en-us/zh-cn]
 | #3         | ???                             | 没有公网ip               | 所有的服务                | Gentoo       | synapse, minecraft, tinc, nginx, ... | 内网主机                                                                           |
 
 
-目前的计划是每次更新完blog，push到gayhub上用它的ci服务，直接做成gayhub pagees，~~然后在内网主机(#3)上wget定时爬下来这个页面~~，[但是wget不好使](../mirror-site)，然后用`ssh` port-forward(over trojan)到commandblock2.xyz上面  
+目前的计划是每次更新完blog，push到github上用它的ci服务，直接做成github pagees，~~然后在内网主机(#3)上wget定时爬下来这个页面~~，[但是wget不好使](../mirror-site)，然后用`ssh` port-forward(over trojan)到commandblock2.xyz上面  
 
 ##### Why not frp
 sshd永远是预装的，tinc/socat一般包管理器里都有，tinc功能比frp强，socat可以不用配置文件直接定时ssh过去就可以，另外frp是go写的听说有内存泄漏还没修 /笑
